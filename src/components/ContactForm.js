@@ -11,19 +11,24 @@ const ContactForm = ({addContact}) => {
 
      const submitHandler=(e)=>{
          e.preventDefault();
-         if(!input){
-             alert("insert Contact");
+         if(!input.name|| !input.email){
+             alert("insert Contact, All feilds are mandatory");
              return
          }
          addContact(input);
-        // setInput('');
+         setInput({name:"",email:""})
      }
 
     return ( 
-        <form onSubmit={submitHandler}>
-        
+        <form  onSubmit={submitHandler}>
+            <div className="formcontrol">
+            <label>name: </label>
             <input type="text" name="name" onChange={changeHandler} value={input.name}/>
+            </div>
+            <div className="formcontrol">
+            <label>email: </label>
             <input type="email" name="email" onChange={changeHandler} value={input.email}/>
+            </div>
         <button type="submit">Add</button>
         </form>
      );

@@ -11,7 +11,7 @@ const ContactList = ({contacts,onDelete}) => {
        
     }
     
-    return <div>{contactrender()}</div>;
+    return <div className="contactlist">{contactrender()}</div>;
 }
  
 export default ContactList;

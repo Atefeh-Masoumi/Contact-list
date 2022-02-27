@@ -17,8 +17,8 @@ const ContactApp = () => {
         setContacts(delContact);
     }
     return ( 
-        <main>
-            <NavBar/>
+        <main className="mainapp">
+            
             <ContactForm addContact={addContact}/>
             <ContactList contacts={contacts} onDelete={deleteContact}/>
             
