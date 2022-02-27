@@ -1,7 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ContactForm from "./ContactForm";
 import ContactList from "./ContactList";
-import NavBar from "./Navbar";
 
 const ContactApp = () => {
     const [contacts, setContacts]=useState([]);
@@ -16,6 +15,16 @@ const ContactApp = () => {
         const delContact = contacts.filter((c)=>c.id !== id);
         setContacts(delContact);
     }
+
+    useEffect(()=>{
+       const storage = JSON.parse(localStorage.getItem(contacts));
+       if (storage) setContacts(storage);
+    },[]);
+    //CMD when mountig when updating
+    useEffect(()=>{
+        localStorage.setItem('contacts',JSON.stringify(contacts));
+    },[contacts]);
+ 
     return ( 
         <main className="mainapp">
             
