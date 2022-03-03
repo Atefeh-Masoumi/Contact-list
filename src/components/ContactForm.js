@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const ContactForm = ({addContact}) => {
+const ContactForm = ({addContact, history}) => {
  const [input, setInput]= useState({
      name:"", email:""});
 
@@ -17,6 +17,8 @@ const ContactForm = ({addContact}) => {
          }
          addContact(input);
          setInput({name:"",email:""})
+         //push to home page
+         history.push("/");
      }
 
     return ( 

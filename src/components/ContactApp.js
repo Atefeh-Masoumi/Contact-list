@@ -1,4 +1,7 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { Route, Switch } from "react-router-dom";
+import ContactDetail from "./ContactDetail";
 import ContactForm from "./ContactForm";
 import ContactList from "./ContactList";
 
@@ -17,8 +20,15 @@ const ContactApp = () => {
     }
 
     useEffect(()=>{
-       const storage = JSON.parse(localStorage.getItem(contacts));
-       if (storage) setContacts(storage);
+    //    const savestorage = JSON.parse(localStorage.getItem(contacts));
+    //    if (savestorage) setContacts(savestorage);
+    const getContacts= async ()=>{
+        const {data}= await axios.get('http://localhost:3001/list')
+        setContacts(data);
+    };
+
+    getContacts();
+    
     },[]);
     //CMD when mountig when updating
     useEffect(()=>{
@@ -27,9 +37,18 @@ const ContactApp = () => {
  
     return ( 
         <main className="mainapp">
-            
-            <ContactForm addContact={addContact}/>
-            <ContactList contacts={contacts} onDelete={deleteContact}/>
+            <Switch>
+                {/*اینجا تو روت از کامپوننت استفاده نمیکینیم چون میاد از دوبار  دام جدید میسازه که این واسه پرفورمنس برنامه
+                 
+                خوب نیس برای همین از رندر استفاده میکنیم 
+                اینجا رندر دیگه نمیاد المنت رو بسازه و میاد اپدیت میکنه  */}
+
+            <Route path="/user/:id" component={ContactDetail} />
+            <Route path="/add" render={(props)=><ContactForm addContact={addContact} {...props}/>}/>
+            <Route path="/" render={(props)=><ContactList contacts={contacts} onDelete={deleteContact} {...props}/>}/>
+            </Switch>
+            {/* <ContactForm addContact={addContact}/>
+            <ContactList contacts={contacts} onDelete={deleteContact}/> */}
             
         </main>
      );
