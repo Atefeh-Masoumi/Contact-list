@@ -5,20 +5,25 @@ const Contact = ({contacts,onDelete}) => {
 
     const {name, email, id} = contacts
     return ( 
-     <div>
+<div>
          
-         <div className="contact" key={id}>
+    <div className="contact" key={id}>
             <img src={userprofile} alt="user"/>
         <Link to={{pathname:`user/${id}`, state:{contacts:contacts}}}>
-        <div className="contactinfo">
-            <p> name: {name}</p>    
-            <p> email: {email}</p>
-              
-        </div>
+            <div className="contactinfo">
+                <p> name: {name}</p>    
+                <p> email: {email}</p>
+                
+            </div>
+        </Link>
+        
+        <Link to={`/edit/${id}`}>
+            <button className="editbtn">Edit</button>
         </Link>
             <button onClick={onDelete}><BsFillTrashFill style={{color:"red",cursor:"pointer",width:"1.5em",height:"1.5em"}}/> </button>
-        </div>
-     </div>
+        
+    </div>
+</div>
      );
 }
  
