@@ -1,25 +1,33 @@
 import { useEffect, useState } from "react";
 import { GetOneContact } from "../Services/GetOneContact";
-
-const EditContact = ({editContact, history,match}) => {
+import { PutOneContact } from "../Services/PutOneContact";
+const EditContact = ({ history,match}) => {
     const [input, setInput]= useState({
         name:"", email:""});
    
         const changeHandler=(e)=>{
             setInput({...input,[e.target.name]:e.target.value})
-            console.log(e.target.value);
+            
         }
+        
    
-        const submitHandler=(e)=>{
+        const submitHandler= async(e)=>{
             e.preventDefault();
             if(!input.name|| !input.email){
                 alert("insert Contact, All feilds are mandatory");
                 return
             }
-            editContact(input,match.params.id);
-            setInput({name:"",email:""})
-            //push to home page
-            history.push("/");
+
+            try {
+                await PutOneContact(match.params.id, input);
+                // const {data} = await getCntc();
+                
+                // setInput({name:"",email:""})
+                //push to home page
+                history.push("/");
+            } catch (error) {
+                
+            }
         }
 
         useEffect(()=>{

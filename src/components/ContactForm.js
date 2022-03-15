@@ -1,6 +1,6 @@
 import { useState } from "react";
-
-const ContactForm = ({addContact, history}) => {
+import { AddOneContact } from "../Services/AddConntact";
+const ContactForm = ({ history}) => {
  const [input, setInput]= useState({
      name:"", email:""});
 
@@ -9,17 +9,24 @@ const ContactForm = ({addContact, history}) => {
          console.log(e.target.value);
      }
 
-     const submitHandler=(e)=>{
+    
+        
+
+     const submitHandler=async (e)=>{
          e.preventDefault();
          if(!input.name|| !input.email){
              alert("insert Contact, All feilds are mandatory");
              return
          }
-         addContact(input);
-         setInput({name:"",email:""})
-         //push to home page
-         history.push("/");
-     }
+         try {
+            const {data}= await AddOneContact(input);
+            setInput({name:"",email:""})
+            history.push("/");
+            //push to home page
+                   
+         } catch (error) { }
+       } 
+     
 
     return ( 
         <form  onSubmit={submitHandler}>

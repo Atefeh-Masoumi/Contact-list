@@ -1,25 +1,24 @@
 
-import { useEffect, useState } from "react";
+// import { useState } from "react";
 import { Route, Switch } from "react-router-dom";
 import ContactDetail from "./ContactDetail";
 import ContactForm from "./ContactForm";
 import ContactList from "./ContactList";
 import { getCntc } from "../Services/GetService";
-import { deleteOneContact } from "../Services/DeleteContact";
-import { AddOneContact } from "../Services/AddConntact";
+
 import EditContact from "./EditContact";
 import { PutOneContact } from "../Services/PutOneContact";
 
 const ContactApp = () => {
-    const [contacts, setContacts]=useState([]);
-    console.log(contacts);
+    // const [contacts, setContacts]=useState([]);
+   
     
-    const addContact=async(formValue)=>{
-      try {
-         const {data}= await AddOneContact(formValue);
-          setContacts([...contacts,{...formValue,data}]);        
-      } catch (error) { }
-    } 
+    // const addContact=async(formValue)=>{
+    //   try {
+    //      const {data}= await AddOneContact(formValue);
+    //       setContacts([...contacts,{...formValue,data}]);        
+    //   } catch (error) { }
+    // } 
     // const deleteContact=async(id)=>{
     //     try {
             
@@ -48,17 +47,17 @@ const ContactApp = () => {
     // useEffect(()=>{
     //     localStorage.setItem('contacts',JSON.stringify(contacts));
     // },[contacts]);
- const editContact= async(contact, id)=>{
-     try {
-         await PutOneContact(id, contact);
-         const {data} = await getCntc();
-         setContacts(data);
-         console.log(data);
-     } catch (error) {
+//  const editContact= async(contact, id)=>{
+//      try {
+//          await PutOneContact(id, contact);
+//          const {data} = await getCntc();
+//          setContacts(data);
+//          console.log(data);
+//      } catch (error) {
          
-     }
+//      }
 
- }
+//  }
     return ( 
         <main className="mainapp">
             <Switch>
@@ -67,9 +66,9 @@ const ContactApp = () => {
                  
                 خوب نیس برای همین از رندر استفاده میکنیم 
                 اینجا رندر دیگه نمیاد المنت رو بسازه و میاد اپدیت میکنه  */}
-            <Route path="/edit/:id" render={(props)=><EditContact editContact={editContact} {...props}/>}/>
+            <Route path="/edit/:id" component={EditContact}/>
             <Route path="/user/:id" component={ContactDetail} />
-            <Route path="/add" render={(props)=><ContactForm addContact={addContact} {...props}/>}/>
+            <Route path="/add" component={ContactForm }/>
             <Route path="/" exact component={ContactList} />
             {/* <Route path="/" render={(props)=><ContactList contacts={contacts} onDelete={deleteContact} {...props}/>}/> */}
             </Switch>
